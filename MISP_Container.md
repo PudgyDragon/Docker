@@ -47,7 +47,7 @@ ENV HTTPS_PROXY="https://<proxyHost>:<proxyPort>"
 ```
 During our installation, we discovered that PIP/PIP3 doesn't like doing things behind a proxy unless specified either in a PIP config or in the commands used. We also discovered that we needed to ensure that the proxy stayed persistent after each use of `sudo`. To do both of these things, the following command was used:
 ```
-sed -i 's/ sudo / sudo --preserve-env=HTTP_PROXY,HTTPS_PROXY,http_proxy,https_proxy /g' /docker-misp/container/Dockerfile
+sed -i 's/sudo /sudo --preserve-env=HTTP_PROXY,HTTPS_PROXY,http_proxy,https_proxy /g' /docker-misp/container/Dockerfile
 ```
 This will replace all instances of `sudo` in the Dockerfile to preserve the proxy environment. There is one instance of `sudo` that will need to remain the same. You will find it in the following lines:
 ```
