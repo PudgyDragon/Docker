@@ -88,6 +88,33 @@ Navigate to the MISP_FQDN you defined
 Login: admin@admin.test
 Password: admin
 ```
+## Extra
+If you're like my team, it's likely you have other containers you're wanting to run with MISP (like OpenCTI). The guide we followed doesn't tell you how to keep the build persistent in the event you need to restart docker. To do so, you will need to edit an existing `docker-compose.yml` file. The location may vary; `cd` to the location and run `vi docker-compose.yml`. To ensure the build will run with docker compose, add the following information to the `services:` section of the file:
+```
+misp:
+  image: harvarditsecurity/misp
+  ports:
+    - "80:80"
+    - "443:443"
+    - "3306:3306"
+    - "6666:6666"
+  volumes:
+    - /docker/misp-db:/var/lib/mysql
+  restart: always
+```
+Before it will work properly (running `docker-compose` may create a second instance) you will need to stop the current docker container of MISP. You can find if MISP is currently running using:
+```
+docker ps
+```
+If you see the MISP container `UP`, you will need to run:
+```
+docker stop <containerID>
+```
+From the directory your `docker-compose.yml` file is in, run:
+```
+docker-compose up -d
+```
+Your MISP container is now part of the docker-compose.yml along with your other containers, and they are all able to be controlled with `docker-compose` together.
 
 ## Issues?
 If you're still having issues with docker-misp through your proxy, there may be a few other places you need to add proxy settings. I will add those soon.
