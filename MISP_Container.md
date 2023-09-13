@@ -20,7 +20,7 @@ cd ~
 ```
 Use the following syntax to clone with your proxy:
 ```
-git --config "http.proxy=http://<proxyHost>:<proxyPort>" clone https://github.com/harvard-itsecurity/docker-misp.git
+git clone https://github.com/harvard-itsecurity/docker-misp.git --config "http.proxy=http://<proxyHost>:<proxyPort>"
 ```
 ## Modify build.sh
 Once it's been cloned, modify the build.sh file with the recommended changes
